@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/teal_700"
     android:layout_height="match_parent"
-    tools:context=".days.LaterFragment">
+    tools:context=".home.HomeFragment">
 
 
     <SearchView

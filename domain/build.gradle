@@ -1,15 +1,17 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.agesadev.domain'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -38,4 +40,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+//    implementation project(':data')
+    implementation project(':common')
+//    implementation project(':app')
+
+//    dagger hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
 }
