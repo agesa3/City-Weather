@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -38,21 +40,27 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         _homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeBinding.viewMoreBtn.setOnClickListener {
+            Toast.makeText(requireContext(), "View More", Toast.LENGTH_SHORT).show()
+        }
         return homeBinding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context, "Creaeted here", Toast.LENGTH_SHORT).show()
+        getAndObserverWeather()
+
+    }
+
+    private fun getAndObserverWeather() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeWeatherViewModel.currentDayWeather.collectLatest { state ->
                     when {
                         state.isLoading -> {
-                            Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                             homeBinding.progressBar.visibility = View.VISIBLE
                         }
                         state.data != null -> {
@@ -64,6 +72,13 @@ class HomeFragment : Fragment() {
                                 humidity.text = state.data.main.humidity.toString()
                                 currentTTime.text = getCurrentTime()
                             }
+                            homeBinding.viewMoreBtn.setOnClickListener {
+                                //pass data to next fragment
+                                val lat = state.data.coord.lat
+                                val lon = state.data.coord.lon
+//                                 val action = HomeFragmentDirections.actionHomeFragmentToWeatherDetailsFragment(lat,lon)
+                            }
+
                         }
                         state.error != null -> {
                             homeBinding.progressBar.visibility = View.GONE
@@ -87,7 +102,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun convertKelvinToDegrees(kelvin: Double): String {
-        return String.format("%.1f", kelvin - 273.15)
+        return String.format("%.1f", kelvin - 273.15) + "°C"
     }
 
     override fun onDestroyView() {
