@@ -1,7 +1,9 @@
 package com.agesadev.weathercell.home
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.agesadev.common.Constants.DEFAULT_CITY_NAME
 import com.agesadev.common.utils.Resource
 import com.agesadev.domain.usecases.GetCurrentDayWeatherUsecase
 import com.agesadev.weathercell.mappers.toWeatherPresentation
@@ -16,16 +18,17 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val getCurrentDayWeather: GetCurrentDayWeatherUsecase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
 
     private val _currentDayWeather = MutableStateFlow(HomeWeatherState())
     val currentDayWeather: StateFlow<HomeWeatherState> = _currentDayWeather
 
-    val cityName = "Kisumu"
+    val cityName = savedStateHandle.get<String>(DEFAULT_CITY_NAME) ?: DEFAULT_CITY_NAME
 
     init {
-       getCurrentDayCityWeather(cityName)
+        getCurrentDayCityWeather(cityName)
     }
 
     private fun getCurrentDayCityWeather(cityName: String) {
