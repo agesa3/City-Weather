@@ -2,6 +2,9 @@ package com.agesadev.weathercell.mappers
 
 import com.agesadev.data.remote.models.*
 import com.agesadev.domain.models.*
+import com.agesadev.domain.models.moredays.CityDomain
+import com.agesadev.domain.models.moredays.ForecastDomain
+import com.agesadev.domain.models.moredays.WeatherForecastDomain
 import com.agesadev.weathercell.model.*
 
 fun WeatherDomain.toWeatherPresentation(): WeatherPresentation {
@@ -68,5 +71,36 @@ fun SysDomain.toSysPresentation(): SysPresentation {
         country = country,
         sunrise = sunrise,
         sunset = sunset,
+    )
+}
+
+fun CityDomain.toCityPresentation(): CityPresentation {
+    return CityPresentation(
+        coord = coord.toCoordPresentation(),
+        id = id,
+        name = name,
+        country = country,
+    )
+}
+
+
+fun ForecastDomain.toCityWeather(): CityWeatherPresentation {
+    return CityWeatherPresentation(
+        clouds = clouds.toCloudsPresentation(),
+        dt = dt,
+        dt_txt = dt_txt,
+        main = main.toMainPresentation(),
+        pop = pop,
+        sys = sys.toSysPresentation(),
+        visibility = visibility,
+        weather = weather.map { it.toWeatherData() },
+        wind = wind.toWindPresentation()
+    )
+}
+
+fun WeatherForecastDomain.toWeatherForecastPresentation(): WeatherForecastPresentation {
+    return WeatherForecastPresentation(
+        city = city.toCityPresentation(),
+        list = list.map { it.toCityWeather() }
     )
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/detailedWeatherFragment">
 
     <fragment
         android:id="@+id/tomorrowFragment"
@@ -25,4 +25,8 @@
         android:name="com.agesadev.weathercell.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/detailedWeatherFragment"
+        android:name="com.agesadev.weathercell.days.DetailedWeatherFragment"
+        android:label="DetailedWeatherFragment" />
 </navigation>
