@@ -17,6 +17,9 @@ import com.agesadev.weathercell.databinding.FragmentCurrentDayBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
+import com.agesadev.weathercell.util.showProgressBar
+import com.agesadev.weathercell.util.showSnackBarWithRetryAction
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -69,14 +72,21 @@ class CurrentDayFragment : Fragment() {
                                     0
                                 )
                             )
+                            currentDayBinding.todayProgessBar.showProgressBar(false)
                         }
 
                         state.isLoading -> {
-
+                            currentDayBinding.todayProgessBar.showProgressBar(true)
                         }
 
                         state.error != null -> {
-
+                            showSnackBarWithRetryAction(
+                                currentDayBinding.root,
+                                state.error
+                            ) {
+                                getAndObserveWeather()
+                            }
+                            currentDayBinding.todayProgessBar.showProgressBar(false)
                         }
                     }
 
@@ -98,5 +108,6 @@ class CurrentDayFragment : Fragment() {
         super.onDestroyView()
         _currentDayBinding = null
     }
+
 
 }

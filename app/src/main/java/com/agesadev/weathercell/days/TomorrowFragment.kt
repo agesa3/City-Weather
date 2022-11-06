@@ -18,6 +18,9 @@ import com.agesadev.weathercell.databinding.FragmentTomorrowBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
+import com.agesadev.weathercell.util.showProgressBar
+import com.agesadev.weathercell.util.showSnackBarWithRetryAction
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -65,15 +68,28 @@ class TomorrowFragment : Fragment() {
                     when {
                         state.data != null -> {
                             Log.d("Tomorrow", "onViewCreated: ${state.data}")
-                            weatherRecyclerAdapter.submitList(filterForecastBasedOnDate(state.data,1))
+                            weatherRecyclerAdapter.submitList(
+                                filterForecastBasedOnDate(
+                                    state.data,
+                                    1
+                                )
+                            )
+                            tomorrowBinding.tomorrowProgressBar.showProgressBar(false)
                         }
 
                         state.isLoading -> {
+                            tomorrowBinding.tomorrowProgressBar.showProgressBar(true)
 
                         }
 
                         state.error != null -> {
-
+                            tomorrowBinding.tomorrowProgressBar.showProgressBar(false)
+                            showSnackBarWithRetryAction(
+                                tomorrowBinding.tomorrowProgressBar,
+                                state.error
+                            ) {
+                                getAndObserveWeather()
+                            }
                         }
                     }
 
@@ -91,10 +107,10 @@ class TomorrowFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _tomorrowBinding = null
     }
-
 
 }

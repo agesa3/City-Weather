@@ -25,10 +25,8 @@ class DetailedWeatherFragment : Fragment() {
 
     private var _detailedWeatherBinding: FragmentDetailedWeatherBinding? = null
     private val detailedWeatherBinding get() = _detailedWeatherBinding!!
-
     private var daysAdapter: DaysViewPagerAdapter? = null
 
-    private val detailedWeatherViewModel: MoreWeatherDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,34 +63,5 @@ class DetailedWeatherFragment : Fragment() {
         }.attach()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailedWeatherViewModel.detailsState.collectLatest { state ->
-                    when {
-                        state.isLoading -> {
-                            Toast.makeText(context, "Were Here Loading", Toast.LENGTH_SHORT).show()
-                        }
-                        state.error != null -> {
-                            Toast.makeText(
-                                context,
-                                "The error is ${state.error}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        state.data != null -> {
-                            Toast.makeText(
-                                context,
-                                "The data is ${state.data}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                }
-            }
-        }
-    }
 }
 

@@ -18,6 +18,8 @@ import com.agesadev.weathercell.databinding.FragmentLaterBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
+import com.agesadev.weathercell.util.showProgressBar
+import com.agesadev.weathercell.util.showSnackBarWithRetryAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -64,14 +66,24 @@ class LaterFragment : Fragment() {
                     when {
                         state.data != null -> {
                             Log.d("Today", "onViewCreated: ${state.data}")
-                            weatherRecyclerAdapter.submitList(filterForecastBasedOnDate(state.data, 2))
+                            laterBinding.laterProgressBar.showProgressBar(false)
+                            weatherRecyclerAdapter.submitList(
+                                filterForecastBasedOnDate(
+                                    state.data,
+                                    2
+                                )
+                            )
                         }
 
                         state.isLoading -> {
-
+                            laterBinding.laterProgressBar.showProgressBar(true)
                         }
 
                         state.error != null -> {
+                            laterBinding.laterProgressBar.showProgressBar(false)
+                            showSnackBarWithRetryAction(laterBinding.root, "Error ${state.error}") {
+                                getAndObserveWeather()
+                            }
 
                         }
                     }
