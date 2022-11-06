@@ -1,6 +1,8 @@
 package com.agesadev.data.repositories
 
 import com.agesadev.common.utils.Resource
+import com.agesadev.data.local.dao.WeatherDao
+import com.agesadev.data.local.model.toWeatherForecastEntity
 import com.agesadev.data.mappers.toCityForeCast
 import com.agesadev.data.mappers.toWeatherDomain
 import com.agesadev.data.remote.WeatherApi
@@ -14,11 +16,13 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class WeatherRepositoriesImpl @Inject constructor(
-    private val weatherApi: WeatherApi
+    private val weatherApi: WeatherApi,
+    private val weatherDao: WeatherDao
 ) : WeatherRepository {
     override fun getCityWeatherByCityName(cityName: String): Flow<Resource<WeatherDomain>> = flow {
         try {
             val weatherFromApi = weatherApi.getWeatherByCityName(cityName)
+            weatherDao.insertWeatherForecast(weatherFromApi.toWeatherForecastEntity())
             emit(Resource.Success(weatherFromApi.toWeatherDomain()))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An error occurred"))

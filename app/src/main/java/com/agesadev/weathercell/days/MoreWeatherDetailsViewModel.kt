@@ -1,14 +1,11 @@
 package com.agesadev.weathercell.days
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.agesadev.common.Constants.DEFAULT_LATITUDE
-import com.agesadev.common.Constants.DEFAULT_LONGITUDE
 import com.agesadev.common.utils.Resource
 import com.agesadev.domain.usecases.GetWeatherForecastByLatLon
+import com.agesadev.weathercell.days.uistate.WeatherDetailState
 import com.agesadev.weathercell.mappers.toCityWeather
-import com.agesadev.weathercell.mappers.toWeatherForecastPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

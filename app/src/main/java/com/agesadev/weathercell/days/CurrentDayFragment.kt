@@ -39,10 +39,6 @@ class CurrentDayFragment : Fragment() {
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
     private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by activityViewModels()
 
-    //    get latitude and longitude from bundle
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +50,6 @@ class CurrentDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _currentDayBinding = FragmentCurrentDayBinding.inflate(inflater, container, false)
-        val bundle = Bundle()
-        longitude = bundle.getDouble("longitude")
-        latitude = bundle.getDouble("latitude")
-        Toast.makeText(context, "Test here $latitude $longitude ", Toast.LENGTH_SHORT).show()
         return currentDayBinding.root
     }
 
@@ -108,9 +100,6 @@ class CurrentDayFragment : Fragment() {
         }
     }
 
-//    private fun getWeatherByLatLong(lat: Double, long: Double) {
-//        detailedWeatherDetailsViewModel.getWeatherForecast(lat, long)
-//    }
 
     private fun setUpRecyclerView() {
         weatherRecyclerAdapter = WeatherRecyclerAdapter()

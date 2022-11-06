@@ -1,4 +1,4 @@
-package com.agesadev.weathercell.days
+package com.agesadev.weathercell.days.uistate
 
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.model.WeatherForecastPresentation

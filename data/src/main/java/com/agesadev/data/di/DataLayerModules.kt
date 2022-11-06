@@ -1,12 +1,19 @@
 package com.agesadev.data.di
 
+import android.content.Context
+import androidx.room.Dao
+import androidx.room.Room
 import com.agesadev.common.Constants.BASE_URL
+import com.agesadev.common.Constants.DB_NAME
+import com.agesadev.data.local.dao.WeatherDao
+import com.agesadev.data.local.db.WeatherDatabase
 import com.agesadev.data.remote.WeatherApi
 import com.agesadev.data.repositories.WeatherRepositoriesImpl
 import com.agesadev.domain.repositories.WeatherRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,9 +51,23 @@ object DataLayerModules {
 
     @Provides
     @Singleton
-    fun provideWeatherRepository(weatherApi: WeatherApi): WeatherRepository {
-        return WeatherRepositoriesImpl(weatherApi)
+    fun provideWeatherRepository(weatherApi: WeatherApi,weatherDao: WeatherDao): WeatherRepository {
+        return WeatherRepositoriesImpl(weatherApi,weatherDao)
     }
+
+    @Provides
+    @Singleton
+    fun providesWeatherDatabase(@ApplicationContext applicationContext: Context): WeatherDatabase {
+        return Room.databaseBuilder(
+            applicationContext,
+            WeatherDatabase::class.java,
+            DB_NAME
+        ).build()
+    }
+
+
+    @Provides
+    fun providesWeatherDao(weatherDatabase: WeatherDatabase) = weatherDatabase.weatherDao()
 
 
 }

@@ -78,15 +78,8 @@ class HomeFragment : Fragment() {
                             homeBinding.viewMoreBtn.setOnClickListener {
                                 val latitude = state.data.coord.lat
                                 val longitude = state.data.coord.lon
-                                val bundle=Bundle()
-                                bundle.putDouble("latitude",latitude)
-                                bundle.putDouble("longitude",longitude)
-//                                add lat and long tu viewmodel
-                                Log.d("Detail Home", "getAndObserverWeather:$latitude $longitude")
                                 moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
-                                findNavController().navigate(R.id.action_homeFragment_to_detailedWeatherFragment,bundle)
-                                Toast.makeText(context, "bundle of $bundle", Toast.LENGTH_SHORT)
-                                    .show()
+                                findNavController().navigate(R.id.action_homeFragment_to_detailedWeatherFragment)
                             }
 
                         }
@@ -115,16 +108,12 @@ class HomeFragment : Fragment() {
         homeBinding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 homeWeatherViewModel.getCurrentDayCityWeather(query.toString())
-                Toast.makeText(context, "The query is $query", Toast.LENGTH_SHORT).show()
                 return true
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
         })
-
-
     }
 
     private fun convertKelvinToDegrees(kelvin: Double): String {
