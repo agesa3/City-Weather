@@ -15,3 +15,5 @@ data class WeatherDomain(
     val weather: List<WeatherDomainLayer>,
     val wind: WindDomain
 )
+
+

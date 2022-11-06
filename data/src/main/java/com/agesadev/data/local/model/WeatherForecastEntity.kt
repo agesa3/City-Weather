@@ -3,26 +3,28 @@ package com.agesadev.data.local.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.agesadev.data.mappers.*
 import com.agesadev.data.remote.models.*
+import com.agesadev.domain.models.*
 
 @Entity(tableName = "weather_forecast")
 data class WeatherForecastEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val name: String,
+    val name: String?=null,
     @Embedded
-    val coord: Coord,
+    val coord: Coord?=null,
     @Embedded
-    val main: Main,
+    val main: Main?=null,
     @Embedded
-    val wind: Wind,
+    val wind: Wind?=null,
     @Embedded
-    val clouds: Clouds,
-    val dt: Int,
+    val clouds: Clouds?=null,
+    val dt: Int?=null,
     @Embedded
-    val sys: Sys,
-    val timezone: Int,
-    val cod: Int
+    val sys: Sys?=null,
+    val timezone: Int?=null,
+    val cod: Int?=null,
 )
 
 
@@ -40,4 +42,23 @@ fun WeatherApiResponse.toWeatherForecastEntity(): WeatherForecastEntity {
         cod = cod ?: 0
     )
 
+}
+
+
+fun WeatherForecastEntity.toWeatherForecastDomain(): WeatherDomain {
+    return WeatherDomain(
+        coord = coord?.toCoordDomain() ?: CoordDomain(0.0, 0.0),
+        main = main?.toMainDomain() ?: MainDomain(0.0, 0, 0, 0.0, 0.0, 0.0),
+        wind = wind?.toWindDomain() ?: WindDomain(0.0, 0),
+        clouds = clouds?.toCloudsDomain() ?: CloudsDomain(0),
+        dt = dt ?: 0,
+        sys = sys?.toSysDomain() ?: SysDomain("", 0, 0),
+        timezone = timezone ?: 0,
+        id = id,
+        name = name ?: "",
+        cod = cod ?: 0,
+        visibility = 0,
+        weather = emptyList()
+
+    )
 }

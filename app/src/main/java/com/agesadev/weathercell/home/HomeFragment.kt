@@ -71,14 +71,21 @@ class HomeFragment : Fragment() {
                             homeBinding.apply {
                                 progressBar.visibility = View.GONE
                                 cityName.text = state.data.name
-                                tempInDegress.text = convertKelvinToDegrees(state.data.main.temp)
-                                humidity.text = state.data.main.humidity.toString()
+                                tempInDegress.text = state.data.main?.let {
+                                    convertKelvinToDegrees(
+                                        it.temp)
+                                }
+                                humidity.text = state.data.main?.humidity.toString()
                                 currentTTime.text = getCurrentTime()
                             }
                             homeBinding.viewMoreBtn.setOnClickListener {
-                                val latitude = state.data.coord.lat
-                                val longitude = state.data.coord.lon
-                                moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
+                                val latitude = state.data.coord?.lat
+                                val longitude = state.data.coord?.lon
+                                if (longitude != null) {
+                                    if (latitude != null) {
+                                        moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
+                                    }
+                                }
                                 findNavController().navigate(R.id.action_homeFragment_to_detailedWeatherFragment)
                             }
 

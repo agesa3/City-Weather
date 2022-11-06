@@ -1,7 +1,9 @@
 package com.agesadev.data.repositories
 
+import android.util.Log
 import com.agesadev.common.utils.Resource
 import com.agesadev.data.local.dao.WeatherDao
+import com.agesadev.data.local.model.toWeatherForecastDomain
 import com.agesadev.data.local.model.toWeatherForecastEntity
 import com.agesadev.data.mappers.toCityForeCast
 import com.agesadev.data.mappers.toWeatherDomain
@@ -20,14 +22,25 @@ class WeatherRepositoriesImpl @Inject constructor(
     private val weatherDao: WeatherDao
 ) : WeatherRepository {
     override fun getCityWeatherByCityName(cityName: String): Flow<Resource<WeatherDomain>> = flow {
-        try {
-            val weatherFromApi = weatherApi.getWeatherByCityName(cityName)
-            weatherDao.insertWeatherForecast(weatherFromApi.toWeatherForecastEntity())
-            emit(Resource.Success(weatherFromApi.toWeatherDomain()))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
+        val weatherFromDb = weatherDao.getWeatherForecastByName(cityName)
+        Log.d("Repository", "getCityWeatherByCityName: $weatherFromDb and cityName: $cityName")
+        if (weatherFromDb != null) {
+            emit(Resource.Success(weatherFromDb.toWeatherForecastDomain()))
+            Log.d("Repository2", "getCityWeatherByCityName: $weatherFromDb and cityName: $cityName")
+        } else {
+            try {
+                val response = weatherApi.getWeatherByCityName(cityName)
+                val weatherEntity = response.toWeatherForecastEntity()
+                weatherEntity.let {
+                    weatherDao.insertWeatherForecast(it)
+                }
+                val weatherDomain = weatherEntity.toWeatherForecastDomain()
+                emit(Resource.Success(weatherDomain))
+            } catch (e: IOException) {
+                emit(Resource.Error(e.message.toString()))
+            } catch (e: HttpException) {
+                emit(Resource.Error(e.message().toString()))
+            }
         }
     }
 
@@ -44,6 +57,10 @@ class WeatherRepositoriesImpl @Inject constructor(
             emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
         }
 
+    }
+
+    override fun getCityWeatherFromDb(cityName: String): Flow<WeatherDomain> = flow {
+        weatherDao.getWeatherForecastByName(cityName)
     }
 
 }
