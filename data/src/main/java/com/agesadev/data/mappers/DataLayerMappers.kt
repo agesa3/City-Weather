@@ -1,5 +1,6 @@
 package com.agesadev.data.mappers
 
+import com.agesadev.data.local.model.WeatherForecastEntity
 import com.agesadev.data.remote.models.*
 import com.agesadev.data.remote.models.dtos.City
 import com.agesadev.data.remote.models.dtos.ForecaseWeatherApiResponse
@@ -119,4 +120,19 @@ fun City.toCityDomain(): CityDomain {
         sunset = sunset ?: 0,
         timezone = timezone ?: 0,
     )
+}
+
+//Type mismatch.
+//Required:
+//List<WeatherForecastEntity>
+//Found:
+//List<WeatherForecastDto>?
+
+fun WeatherForecastDto.toWeatherForecastEntity(): WeatherForecastEntity {
+    return WeatherForecastEntity(
+        clouds = clouds,
+        dt = dt ?: 0,
+        main = main,
+        wind = wind,
+        )
 }

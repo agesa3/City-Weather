@@ -6,6 +6,7 @@ import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.model.toWeatherForecastDomain
 import com.agesadev.data.local.model.toWeatherForecastEntity
 import com.agesadev.data.mappers.toCityForeCast
+import com.agesadev.data.mappers.toForecastDomain
 import com.agesadev.data.mappers.toWeatherDomain
 import com.agesadev.data.remote.WeatherApi
 import com.agesadev.domain.models.WeatherDomain
@@ -47,16 +48,22 @@ class WeatherRepositoriesImpl @Inject constructor(
     override fun getCityWeatherByLatLon(
         lat: Double,
         lon: Double
-    ): Flow<Resource<WeatherForecastDomain>> = flow {
-        try {
-            val weatherForecastFromApi = weatherApi.getWeatherByCityCoord(lat, lon)
-            emit(Resource.Success(weatherForecastFromApi.toCityForeCast()))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error(e.localizedMessage ?: "An error occurred"))
-        }
+    ): Flow<Resource<List<WeatherDomain>>> = flow {
+        val weatherFromDb = weatherDao.getWeatherForecastByLatLon(lat, lon)
+        if (weatherFromDb != null) {
+            emit(Resource.Success(weatherFromDb.map { it.toWeatherForecastDomain() }))
+        } else {
+            try {
+                val response = weatherApi.getWeatherByCityCoord(lat, lon).list
+                val saveResponseToDb= weatherDao.insertWeatherForecast(response)
 
+
+            } catch (e: IOException) {
+                emit(Resource.Error(e.message.toString()))
+            } catch (e: HttpException) {
+                emit(Resource.Error(e.message().toString()))
+            }
+        }
     }
 
 
