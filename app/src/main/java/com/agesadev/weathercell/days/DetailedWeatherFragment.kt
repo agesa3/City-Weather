@@ -1,22 +1,14 @@
 package com.agesadev.weathercell.days
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.agesadev.weathercell.R
+import androidx.fragment.app.Fragment
 import com.agesadev.weathercell.databinding.FragmentDetailedWeatherBinding
 import com.agesadev.weathercell.days.adapters.DaysViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -26,6 +18,7 @@ class DetailedWeatherFragment : Fragment() {
     private var _detailedWeatherBinding: FragmentDetailedWeatherBinding? = null
     private val detailedWeatherBinding get() = _detailedWeatherBinding!!
     private var daysAdapter: DaysViewPagerAdapter? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +32,11 @@ class DetailedWeatherFragment : Fragment() {
     ): View? {
         _detailedWeatherBinding = FragmentDetailedWeatherBinding.inflate(inflater, container, false)
         setUpViewPager()
+
+
         return detailedWeatherBinding.root
     }
+
 
     private fun setUpViewPager() {
         daysAdapter = DaysViewPagerAdapter(this)

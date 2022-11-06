@@ -1,18 +1,21 @@
 package com.agesadev.weathercell.model
 
-import com.agesadev.data.remote.models.*
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class WeatherPresentation(
-    val coord: CoordPresentation,
-    val weather: List<WeatherData>,
-    val main: MainPresentation,
+    val coord: @RawValue CoordPresentation,
+    val weather: @RawValue List<WeatherData>,
+    val main: @RawValue MainPresentation,
     val visibility: Int,
-    val wind: WindPresentation,
-    val clouds: CloudsPresentation,
+    val wind: @RawValue WindPresentation,
+    val clouds: @RawValue CloudsPresentation,
     val dt: Int,
-    val sys: SysPresentation,
+    val sys: @RawValue SysPresentation,
     val timezone: Int,
     val id: Int,
     val name: String,
     val cod: Int
-)
+) : Parcelable

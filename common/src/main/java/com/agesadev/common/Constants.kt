@@ -8,4 +8,6 @@ object Constants {
     const val IMAGE_URL = "https://openweathermap.org/img/wn/"
     const val IMAGE_FORMAT = "@2x.png"
     const val DEFAULT_CITY_NAME = "MOMBASA"
+    const val DEFAULT_LATITUDE = -4.05466
+    const val DEFAULT_LONGITUDE = 39.66359
 }

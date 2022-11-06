@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +36,7 @@ class LaterFragment : Fragment() {
     private val laterBinding get() = _laterBinding!!
 
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
-    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by viewModels()
+    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentTomorrowBinding
@@ -36,6 +38,7 @@ class TomorrowFragment : Fragment() {
     private val tomorrowBinding get() = _tomorrowBinding!!
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
     private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by viewModels()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

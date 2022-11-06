@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +37,12 @@ class CurrentDayFragment : Fragment() {
     private var _currentDayBinding: FragmentCurrentDayBinding? = null
     private val currentDayBinding get() = _currentDayBinding!!
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
-    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by viewModels()
+    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by activityViewModels()
+
+    //    get latitude and longitude from bundle
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,10 @@ class CurrentDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _currentDayBinding = FragmentCurrentDayBinding.inflate(inflater, container, false)
+        val bundle = Bundle()
+        longitude = bundle.getDouble("longitude")
+        latitude = bundle.getDouble("latitude")
+        Toast.makeText(context, "Test here $latitude $longitude ", Toast.LENGTH_SHORT).show()
         return currentDayBinding.root
     }
 
@@ -56,6 +67,7 @@ class CurrentDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         getAndObserveWeather()
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -95,6 +107,10 @@ class CurrentDayFragment : Fragment() {
             }
         }
     }
+
+//    private fun getWeatherByLatLong(lat: Double, long: Double) {
+//        detailedWeatherDetailsViewModel.getWeatherForecast(lat, long)
+//    }
 
     private fun setUpRecyclerView() {
         weatherRecyclerAdapter = WeatherRecyclerAdapter()

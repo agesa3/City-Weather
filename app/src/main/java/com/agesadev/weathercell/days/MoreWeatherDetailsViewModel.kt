@@ -1,7 +1,10 @@
 package com.agesadev.weathercell.days
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.agesadev.common.Constants.DEFAULT_LATITUDE
+import com.agesadev.common.Constants.DEFAULT_LONGITUDE
 import com.agesadev.common.utils.Resource
 import com.agesadev.domain.usecases.GetWeatherForecastByLatLon
 import com.agesadev.weathercell.mappers.toCityWeather
@@ -24,10 +27,10 @@ class MoreWeatherDetailsViewModel @Inject constructor(
 
 
     init {
-        getWeatherForecast(-0.1022, 34.7617)
+        getWeatherForecast(0.0, 0.0)
     }
 
-    private fun getWeatherForecast(lat: Double, lon: Double) {
+    fun getWeatherForecast(lat: Double, lon: Double) {
         viewModelScope.launch {
             getWeatherForecastByLatLon(lat, lon).onStart {
                 _detailsState.value = WeatherDetailState(isLoading = true)
