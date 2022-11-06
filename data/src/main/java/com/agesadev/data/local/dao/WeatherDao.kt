@@ -34,9 +34,9 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeatherForecast(weatherForecastEntity: WeatherForecastEntity)
 
-    //    get weather by city name
-    @Query("SELECT * FROM weather_forecast WHERE name = :name")
-    suspend fun getWeatherForecastByName(name: String): WeatherForecastEntity
+    //    get weather by city name without caring the lowercase or uper case
+    @Query("SELECT * FROM weather_forecast WHERE name LIKE '%' || :cityName || '%'")
+    suspend fun getWeatherForecastByCityName(cityName: String): WeatherForecastEntity
 
     @Query("DELETE FROM weather_forecast")
     suspend fun deleteAllWeatherForecast()

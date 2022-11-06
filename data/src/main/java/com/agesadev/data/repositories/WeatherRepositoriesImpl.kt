@@ -22,7 +22,7 @@ class WeatherRepositoriesImpl @Inject constructor(
     private val weatherDao: WeatherDao
 ) : WeatherRepository {
     override fun getCityWeatherByCityName(cityName: String): Flow<Resource<WeatherDomain>> = flow {
-        val weatherFromDb = weatherDao.getWeatherForecastByName(cityName)
+        val weatherFromDb = weatherDao.getWeatherForecastByCityName(cityName)
         Log.d("Repository", "getCityWeatherByCityName: $weatherFromDb and cityName: $cityName")
         if (weatherFromDb != null) {
             emit(Resource.Success(weatherFromDb.toWeatherForecastDomain()))
@@ -59,8 +59,5 @@ class WeatherRepositoriesImpl @Inject constructor(
 
     }
 
-    override fun getCityWeatherFromDb(cityName: String): Flow<WeatherDomain> = flow {
-        weatherDao.getWeatherForecastByName(cityName)
-    }
 
 }
