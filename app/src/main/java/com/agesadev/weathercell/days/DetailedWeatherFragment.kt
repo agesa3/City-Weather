@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentDetailedWeatherBinding
+import com.agesadev.weathercell.days.adapters.DaysViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,6 +26,8 @@ class DetailedWeatherFragment : Fragment() {
     private var _detailedWeatherBinding: FragmentDetailedWeatherBinding? = null
     private val detailedWeatherBinding get() = _detailedWeatherBinding!!
 
+    private var daysAdapter: DaysViewPagerAdapter? = null
+
     private val detailedWeatherViewModel: MoreWeatherDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +39,30 @@ class DetailedWeatherFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _detailedWeatherBinding = FragmentDetailedWeatherBinding.inflate(inflater, container, false)
+        setUpViewPager()
         return detailedWeatherBinding.root
+    }
+
+    private fun setUpViewPager() {
+        daysAdapter = DaysViewPagerAdapter(this)
+        detailedWeatherBinding.weatherViewPager.adapter = daysAdapter
+        TabLayoutMediator(
+            detailedWeatherBinding.daysTabLayout,
+            detailedWeatherBinding.weatherViewPager
+        ) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "Today"
+                }
+                1 -> {
+                    tab.text = "Tomorrow"
+                }
+                2 -> {
+                    tab.text = "Later"
+                }
+            }
+        }.attach()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

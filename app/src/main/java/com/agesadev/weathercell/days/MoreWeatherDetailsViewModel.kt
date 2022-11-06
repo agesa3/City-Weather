@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.agesadev.common.utils.Resource
 import com.agesadev.domain.usecases.GetWeatherForecastByLatLon
+import com.agesadev.weathercell.mappers.toCityWeather
 import com.agesadev.weathercell.mappers.toWeatherForecastPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +36,7 @@ class MoreWeatherDetailsViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         _detailsState.value =
-                            WeatherDetailState(data = resource.data?.toWeatherForecastPresentation())
+                            WeatherDetailState(data = resource.data?.list?.map { it.toCityWeather() })
                     }
                     is Resource.Error -> {
                         _detailsState.value = WeatherDetailState(
