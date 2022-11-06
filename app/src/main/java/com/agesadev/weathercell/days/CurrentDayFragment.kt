@@ -32,7 +32,6 @@ class CurrentDayFragment : Fragment() {
     private val currentDayBinding get() = _currentDayBinding!!
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
     private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by viewModels()
-    val todayWeatherList = mutableListOf<CityWeatherPresentation>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
