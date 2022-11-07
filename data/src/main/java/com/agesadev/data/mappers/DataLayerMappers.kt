@@ -71,15 +71,7 @@ fun CityWeatherDto.toDomain(): CityWeatherDomain {
     )
 }
 
-fun ForecastWeatherApiResponse.toForecastWeatherDomain(): ForecastWeatherDomain {
-    return ForecastWeatherDomain(
-        city = city.toCityDomain(),
-        cnt = cnt,
-        cod = cod,
-        list = list.map { it.toDomain() },
-        message = message
-    )
-}
+
 
 fun ForecastWeatherApiResponse.toWeatherForecastEntity(): WeatherForecastEntity {
     return WeatherForecastEntity(
