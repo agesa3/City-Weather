@@ -6,9 +6,9 @@ import com.agesadev.domain.models.CloudsDomain
 import com.agesadev.domain.models.CoordDomain
 import com.agesadev.domain.models.MainDomain
 import com.agesadev.domain.models.WindDomain
-import com.agesadev.domain.models.newmodel.CityDomain
-import com.agesadev.domain.models.newmodel.CityWeatherDomain
-import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
+import com.agesadev.domain.models.CityDomain
+import com.agesadev.domain.models.CityWeatherDomain
+import com.agesadev.domain.models.ForecastWeatherDomain
 
 
 fun Coord.toCoordDomain(): CoordDomain {

@@ -1,9 +1,9 @@
 package com.agesadev.weathercell.mappers
 
 import com.agesadev.domain.models.*
-import com.agesadev.domain.models.newmodel.CityDomain
-import com.agesadev.domain.models.newmodel.CityWeatherDomain
-import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
+import com.agesadev.domain.models.CityDomain
+import com.agesadev.domain.models.CityWeatherDomain
+import com.agesadev.domain.models.ForecastWeatherDomain
 import com.agesadev.weathercell.model.*
 
 

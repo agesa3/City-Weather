@@ -1,6 +1,4 @@
-package com.agesadev.domain.models.newmodel
-
-import com.agesadev.domain.models.CoordDomain
+package com.agesadev.domain.models
 
 data class CityDomain(
     val coord: CoordDomain,

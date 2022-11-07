@@ -1,4 +1,4 @@
-package com.agesadev.domain.models.newmodel
+package com.agesadev.domain.models
 
 data class ForecastWeatherDomain(
     val city: CityDomain,

@@ -1,8 +1,4 @@
-package com.agesadev.domain.models.newmodel
-
-import com.agesadev.domain.models.CloudsDomain
-import com.agesadev.domain.models.MainDomain
-import com.agesadev.domain.models.WindDomain
+package com.agesadev.domain.models
 
 data class CityWeatherDomain(
     val clouds: CloudsDomain,

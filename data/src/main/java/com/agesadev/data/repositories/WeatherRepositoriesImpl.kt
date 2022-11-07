@@ -5,7 +5,7 @@ import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.model.toWeatherForeCastDomain
 import com.agesadev.data.mappers.toWeatherForecastEntity
 import com.agesadev.data.remote.WeatherApi
-import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
+import com.agesadev.domain.models.ForecastWeatherDomain
 import com.agesadev.domain.repositories.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

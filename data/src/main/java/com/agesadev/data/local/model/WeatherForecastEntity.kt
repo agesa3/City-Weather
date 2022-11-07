@@ -8,7 +8,7 @@ import com.agesadev.data.mappers.toCityDomain
 import com.agesadev.data.mappers.toDomain
 import com.agesadev.data.remote.dtos.City
 import com.agesadev.data.remote.dtos.CityWeatherDto
-import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
+import com.agesadev.domain.models.ForecastWeatherDomain
 
 @Entity(tableName = "weather_forecast")
 data class WeatherForecastEntity(
