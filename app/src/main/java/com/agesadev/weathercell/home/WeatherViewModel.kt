@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.agesadev.common.Constants.DEFAULT_CITY_NAME
 import com.agesadev.common.utils.Resource
-import com.agesadev.domain.usecases.GetCurrentDayWeatherUsecase
-import com.agesadev.weathercell.mappers.toWeatherPresentation
+import com.agesadev.domain.usecases.GetWeatheForecastUsecase
+import com.agesadev.weathercell.model.toForecastWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val getCurrentDayWeather: GetCurrentDayWeatherUsecase,
+    private val getCurrentDayWeather: GetWeatheForecastUsecase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -31,7 +31,7 @@ class WeatherViewModel @Inject constructor(
         getCurrentDayCityWeather(cityName)
     }
 
-     fun getCurrentDayCityWeather(cityName: String) {
+    fun getCurrentDayCityWeather(cityName: String) {
         viewModelScope.launch {
             getCurrentDayWeather(cityName).onStart {
                 _currentDayWeather.value = HomeWeatherState(isLoading = true)
@@ -39,7 +39,7 @@ class WeatherViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         _currentDayWeather.value =
-                            HomeWeatherState(data = resource.data?.toWeatherPresentation())
+                            HomeWeatherState(data = resource.data?.toForecastWeather())
                     }
                     is Resource.Error -> {
                         _currentDayWeather.value = HomeWeatherState(
@@ -54,8 +54,6 @@ class WeatherViewModel @Inject constructor(
             }
         }
     }
-
-
 
 
 }

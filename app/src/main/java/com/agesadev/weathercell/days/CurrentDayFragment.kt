@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agesadev.weathercell.databinding.FragmentCurrentDayBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
+import com.agesadev.weathercell.home.WeatherViewModel
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
 import com.agesadev.weathercell.util.showProgressBar
@@ -37,7 +38,8 @@ class CurrentDayFragment : Fragment() {
     private var _currentDayBinding: FragmentCurrentDayBinding? = null
     private val currentDayBinding get() = _currentDayBinding!!
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
-    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by activityViewModels()
+
+    private val homeWeatherViewModel: WeatherViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,13 +68,13 @@ class CurrentDayFragment : Fragment() {
     private fun getAndObserveWeather() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailedWeatherDetailsViewModel.detailsState.collectLatest { state ->
+                homeWeatherViewModel.currentDayWeather.collectLatest { state ->
                     when {
                         state.data != null -> {
                             Log.d("Today", "onViewCreated: ${state.data}")
                             weatherRecyclerAdapter.submitList(
                                 filterForecastBasedOnDate(
-                                    state.data,
+                                    state.data.list,
                                     0
                                 )
                             )

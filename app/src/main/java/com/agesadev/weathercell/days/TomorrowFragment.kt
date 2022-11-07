@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentTomorrowBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
+import com.agesadev.weathercell.home.WeatherViewModel
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
 import com.agesadev.weathercell.util.showProgressBar
@@ -37,8 +39,7 @@ class TomorrowFragment : Fragment() {
     private var _tomorrowBinding: FragmentTomorrowBinding? = null
     private val tomorrowBinding get() = _tomorrowBinding!!
     private lateinit var weatherRecyclerAdapter: WeatherRecyclerAdapter
-    private val detailedWeatherDetailsViewModel: MoreWeatherDetailsViewModel by viewModels()
-
+    private val homeWeatherViewModel: WeatherViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,13 +68,13 @@ class TomorrowFragment : Fragment() {
     private fun getAndObserveWeather() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailedWeatherDetailsViewModel.detailsState.collectLatest { state ->
+                homeWeatherViewModel.currentDayWeather.collectLatest { state ->
                     when {
                         state.data != null -> {
                             Log.d("Tomorrow", "onViewCreated: ${state.data}")
                             weatherRecyclerAdapter.submitList(
                                 filterForecastBasedOnDate(
-                                    state.data,
+                                    state.data.list,
                                     1
                                 )
                             )

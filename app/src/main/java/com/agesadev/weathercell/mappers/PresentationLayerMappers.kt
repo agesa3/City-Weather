@@ -1,10 +1,10 @@
 package com.agesadev.weathercell.mappers
 
-import com.agesadev.data.remote.models.*
 import com.agesadev.domain.models.*
-import com.agesadev.domain.models.moredays.CityDomain
+import com.agesadev.domain.models.newmodel.CityDomain
 import com.agesadev.domain.models.moredays.ForecastDomain
 import com.agesadev.domain.models.moredays.WeatherForecastDomain
+import com.agesadev.domain.models.newmodel.CityWeatherDomain
 import com.agesadev.weathercell.model.*
 
 fun WeatherDomain.toWeatherPresentation(): WeatherPresentation {
@@ -83,24 +83,39 @@ fun CityDomain.toCityPresentation(): CityPresentation {
     )
 }
 
-
-fun ForecastDomain.toCityWeather(): CityWeatherPresentation {
+fun CityWeatherDomain.toCityWeatherPresentation():CityWeatherPresentation{
     return CityWeatherPresentation(
         clouds = clouds.toCloudsPresentation(),
         dt = dt,
         dt_txt = dt_txt,
         main = main.toMainPresentation(),
         pop = pop,
-        sys = sys.toSysPresentation(),
         visibility = visibility,
-        weather = weather.map { it.toWeatherData() },
-        wind = wind.toWindPresentation()
+        wind = wind.toWindPresentation(),
+
     )
 }
 
-fun WeatherForecastDomain.toWeatherForecastPresentation(): WeatherForecastPresentation {
-    return WeatherForecastPresentation(
-        city = city.toCityPresentation(),
-        list = list.map { it.toCityWeather() }
-    )
-}
+
+
+
+//fun ForecastDomain.toCityWeather(): CityWeatherPresentation {
+//    return CityWeatherPresentation(
+//        clouds = clouds.toCloudsPresentation(),
+//        dt = dt,
+//        dt_txt = dt_txt,
+//        main = main.toMainPresentation(),
+//        pop = pop,
+//        visibility = visibility,
+//        wind = wind.toWindPresentation()
+//    )
+//}
+//
+//fun WeatherForecastDomain.toWeatherForecastPresentation(): WeatherForecastPresentation {
+//    return WeatherForecastPresentation(
+//        city = city.toCityPresentation(),
+//        list = list.map { it.toCityWeather() }
+//    )
+//}
+
+

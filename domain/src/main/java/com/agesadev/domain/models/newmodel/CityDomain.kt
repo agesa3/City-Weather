@@ -1,4 +1,4 @@
-package com.agesadev.domain.models.moredays
+package com.agesadev.domain.models.newmodel
 
 import com.agesadev.domain.models.CoordDomain
 

@@ -19,7 +19,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentHomeBinding
-import com.agesadev.weathercell.days.MoreWeatherDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -33,8 +32,7 @@ class HomeFragment : Fragment() {
     private var _homeBinding: FragmentHomeBinding? = null
     private val homeBinding get() = _homeBinding!!
 
-    private val homeWeatherViewModel: WeatherViewModel by viewModels()
-    private val moreWeatherDetailsViewModel: MoreWeatherDetailsViewModel by activityViewModels()
+    private val homeWeatherViewModel: WeatherViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,22 +68,22 @@ class HomeFragment : Fragment() {
 
                             homeBinding.apply {
                                 progressBar.visibility = View.GONE
-                                cityName.text = state.data.name
-                                tempInDegress.text = state.data.main?.let {
-                                    convertKelvinToDegrees(
-                                        it.temp)
-                                }
-                                humidity.text = state.data.main?.humidity.toString()
+                                cityName.text = state.data.city.name
+//                                tempInDegress.text = state.data.?.let {
+//                                    convertKelvinToDegrees(
+//                                        it.temp)
+//                                }
+//                                humidity.text = state.data.main?.humidity.toString()
                                 currentTTime.text = getCurrentTime()
                             }
                             homeBinding.viewMoreBtn.setOnClickListener {
-                                val latitude = state.data.coord?.lat
-                                val longitude = state.data.coord?.lon
-                                if (longitude != null) {
-                                    if (latitude != null) {
-                                        moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
-                                    }
-                                }
+//                                val latitude = state.data.coord?.lat
+//                                val longitude = state.data.coord?.lon
+//                                if (longitude != null) {
+//                                    if (latitude != null) {
+//                                        moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
+//                                    }
+//                                }
                                 findNavController().navigate(R.id.action_homeFragment_to_detailedWeatherFragment)
                             }
 
