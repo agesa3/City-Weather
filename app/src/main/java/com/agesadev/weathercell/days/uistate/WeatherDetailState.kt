@@ -1,7 +1,6 @@
 package com.agesadev.weathercell.days.uistate
 
 import com.agesadev.weathercell.model.CityWeatherPresentation
-import com.agesadev.weathercell.model.WeatherForecastPresentation
 
 data class WeatherDetailState(
     val isLoading: Boolean = false,

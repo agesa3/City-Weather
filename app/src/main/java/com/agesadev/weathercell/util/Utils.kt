@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
@@ -18,6 +19,17 @@ object Utils {
     ): List<CityWeatherPresentation> {
         val dayAfterTomorrow = LocalDate.now().plusDays(daysToAdd).toString()
         return list.filter { it.dt_txt.contains(dayAfterTomorrow) }
+    }
+
+    fun getSunsetOrSunriseTime(sunset: Int): String {
+        val date = Date(sunset.toLong() * 1000)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
+
+    }
+
+    fun convertKelvinToDegrees(kelvin: Double): String {
+        return String.format("%.1f", kelvin - 273.15) + "°C"
     }
 
 }
@@ -40,5 +52,8 @@ fun showSnackBarWithRetryAction(
         }
         .show()
 }
+
+
+
 
 

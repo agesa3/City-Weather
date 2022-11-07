@@ -5,7 +5,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.agesadev.weathercell.days.CurrentDayFragment
 import com.agesadev.weathercell.days.LaterFragment
 import com.agesadev.weathercell.days.TomorrowFragment
-import com.agesadev.weathercell.model.WeatherData
 
 class DaysViewPagerAdapter(val fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 3

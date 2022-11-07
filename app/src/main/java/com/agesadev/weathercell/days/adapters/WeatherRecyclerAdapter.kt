@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.agesadev.weathercell.databinding.SingleWeatherCardBinding
 import com.agesadev.weathercell.model.CityWeatherPresentation
+import com.agesadev.weathercell.util.Utils.convertKelvinToDegrees
 
 class WeatherRecyclerAdapter :
     ListAdapter<CityWeatherPresentation, WeatherRecyclerAdapter.WeatherViewHolder>(
@@ -21,7 +22,9 @@ class WeatherRecyclerAdapter :
             weatherCardItemBinding.apply {
                 windSpeed.text = cityWeatherPresentation.wind.speed.toString()
                 humidity.text = cityWeatherPresentation.main.humidity.toString()
-                dateTimeText.text= cityWeatherPresentation.dt_txt
+                dateTimeText.text = cityWeatherPresentation.dt_txt
+                pressure.text = cityWeatherPresentation.main.pressure.toString()
+                tempInDegrees.text = convertKelvinToDegrees(cityWeatherPresentation.main.temp)
             }
         }
     }

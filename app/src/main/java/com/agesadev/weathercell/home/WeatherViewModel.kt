@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.agesadev.common.Constants.DEFAULT_CITY_NAME
 import com.agesadev.common.utils.Resource
 import com.agesadev.domain.usecases.GetWeatherForecastUseCase
-import com.agesadev.weathercell.model.toForecastWeather
+import com.agesadev.weathercell.mappers.toForecastWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

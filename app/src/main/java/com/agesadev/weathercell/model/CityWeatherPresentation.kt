@@ -1,11 +1,5 @@
 package com.agesadev.weathercell.model
 
-data class WeatherForecastPresentation(
-    val city: CityPresentation,
-    val list: List<CityWeatherPresentation>,
-
-)
-
 data class CityWeatherPresentation(
     val clouds: CloudsPresentation,
     val dt: Int,

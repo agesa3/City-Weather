@@ -2,17 +2,14 @@ package com.agesadev.weathercell.home
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -23,8 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.util.Calendar
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -45,6 +41,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeBinding.viewMoreBtn.setOnClickListener {
+            findNavController().navigate(R.id.detailedWeatherFragment)
+        }
         return homeBinding.root
     }
 
@@ -65,28 +64,13 @@ class HomeFragment : Fragment() {
                             homeBinding.progressBar.visibility = View.VISIBLE
                         }
                         state.data != null -> {
-
                             homeBinding.apply {
                                 progressBar.visibility = View.GONE
                                 cityName.text = state.data.city.name
-//                                tempInDegress.text = state.data.?.let {
-//                                    convertKelvinToDegrees(
-//                                        it.temp)
-//                                }
-//                                humidity.text = state.data.main?.humidity.toString()
-                                currentTTime.text = getCurrentTime()
+                                sunsetTime.text = getSunsetOrSunriseTime(state.data.city.sunset)
+                                sunriseTime.text = getSunsetOrSunriseTime(state.data.city.sunrise)
+                                countyCode.text = state.data.city.country
                             }
-                            homeBinding.viewMoreBtn.setOnClickListener {
-//                                val latitude = state.data.coord?.lat
-//                                val longitude = state.data.coord?.lon
-//                                if (longitude != null) {
-//                                    if (latitude != null) {
-//                                        moreWeatherDetailsViewModel.getWeatherForecast(latitude, longitude)
-//                                    }
-//                                }
-                                findNavController().navigate(R.id.action_homeFragment_to_detailedWeatherFragment)
-                            }
-
                         }
                         state.error != null -> {
                             homeBinding.progressBar.visibility = View.GONE
@@ -103,11 +87,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getCurrentTime(): String {
-        val current = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("hh:mm")
-        return formatter.format(current)
+    private fun getSunsetOrSunriseTime(sunset: Int): String {
+        val date = Date(sunset.toLong() * 1000)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
+
     }
+
 
     private fun searchCityByName() {
         homeBinding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -115,15 +101,14 @@ class HomeFragment : Fragment() {
                 homeWeatherViewModel.getCurrentDayCityWeather(query.toString())
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
         })
     }
 
-    private fun convertKelvinToDegrees(kelvin: Double): String {
-        return String.format("%.1f", kelvin - 273.15) + "°C"
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

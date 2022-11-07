@@ -3,31 +3,25 @@ package com.agesadev.weathercell.days
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentLaterBinding
 import com.agesadev.weathercell.days.adapters.WeatherRecyclerAdapter
 import com.agesadev.weathercell.home.WeatherViewModel
-import com.agesadev.weathercell.model.CityWeatherPresentation
 import com.agesadev.weathercell.util.Utils.filterForecastBasedOnDate
 import com.agesadev.weathercell.util.showProgressBar
 import com.agesadev.weathercell.util.showSnackBarWithRetryAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 @AndroidEntryPoint
