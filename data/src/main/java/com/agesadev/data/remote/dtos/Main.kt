@@ -1,4 +1,4 @@
-package com.agesadev.data.remote.model
+package com.agesadev.data.remote.dtos
 
 data class Main(
     val feels_like: Double,

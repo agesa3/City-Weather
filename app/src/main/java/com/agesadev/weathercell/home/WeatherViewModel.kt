@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.agesadev.common.Constants.DEFAULT_CITY_NAME
 import com.agesadev.common.utils.Resource
-import com.agesadev.domain.usecases.GetWeatheForecastUsecase
+import com.agesadev.domain.usecases.GetWeatherForecastUseCase
 import com.agesadev.weathercell.model.toForecastWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val getCurrentDayWeather: GetWeatheForecastUsecase,
+    private val getCurrentDayWeather: GetWeatherForecastUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

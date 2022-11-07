@@ -3,8 +3,8 @@ package com.agesadev.data.repositories
 import com.agesadev.common.utils.Resource
 import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.model.toWeatherForeCastDomain
+import com.agesadev.data.mappers.toWeatherForecastEntity
 import com.agesadev.data.remote.WeatherApi
-import com.agesadev.data.remote.model.toWeatherForecastEntity
 import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
 import com.agesadev.domain.repositories.WeatherRepository
 import kotlinx.coroutines.flow.Flow

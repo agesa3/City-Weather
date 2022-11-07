@@ -5,9 +5,9 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.agesadev.data.mappers.toCityDomain
-import com.agesadev.data.remote.model.City
-import com.agesadev.data.remote.model.CityWeatherDto
-import com.agesadev.data.remote.model.toDomain
+import com.agesadev.data.mappers.toDomain
+import com.agesadev.data.remote.dtos.City
+import com.agesadev.data.remote.dtos.CityWeatherDto
 import com.agesadev.domain.models.newmodel.ForecastWeatherDomain
 
 @Entity(tableName = "weather_forecast")
@@ -33,48 +33,3 @@ fun WeatherForecastEntity.toWeatherForeCastDomain(): ForecastWeatherDomain {
         message = message
     )
 }
-
-//Required:
-//WeatherForecastEntity
-//Found:
-//ForecastWeatherApiResponse
-
-
-
-
-
-//
-//fun WeatherApiResponse.toWeatherForecastEntity(): WeatherForecastEntity {
-//    return WeatherForecastEntity(
-//        id = 0,
-//        name = name ?: "",
-//        coord = coord ?: Coord(0.0, 0.0),
-//        main = main ?: Main(0.0, 0, 0, 0, 0, 0.0),
-//        wind = wind ?: Wind(0, 0.0),
-//        clouds = clouds ?: Clouds(0),
-//        dt = dt ?: 0,
-//        sys = sys ?: Sys("", 0, 0),
-//        timezone = timezone ?: 0,
-//        cod = cod ?: 0
-//    )
-//
-//}
-//
-//
-//fun WeatherForecastEntity.toWeatherForecastDomain(): WeatherDomain {
-//    return WeatherDomain(
-//        coord = coord?.toCoordDomain() ?: CoordDomain(0.0, 0.0),
-//        main = main?.toMainDomain() ?: MainDomain(0.0, 0, 0, 0.0, 0.0, 0.0),
-//        wind = wind?.toWindDomain() ?: WindDomain(0.0, 0),
-//        clouds = clouds?.toCloudsDomain() ?: CloudsDomain(0),
-//        dt = dt ?: 0,
-//        sys = sys?.toSysDomain() ?: SysDomain("", 0, 0),
-//        timezone = timezone ?: 0,
-//        id = id,
-//        name = name ?: "",
-//        cod = cod ?: 0,
-//        visibility = 0,
-//        weather = emptyList()
-//
-//    )
-//}

@@ -1,10 +1,10 @@
 package com.agesadev.data.di
 
 import android.content.Context
-import androidx.room.Dao
 import androidx.room.Room
 import com.agesadev.common.Constants.BASE_URL
 import com.agesadev.common.Constants.DB_NAME
+import com.agesadev.data.BuildConfig
 import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.db.WeatherDatabase
 import com.agesadev.data.remote.WeatherApi
@@ -25,13 +25,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataLayerModules {
 
+
     @Provides
     @Singleton
-    fun providesOkHttpClient() = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-        .build()
+    fun providesOkHttpClient() = if (BuildConfig.DEBUG) {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+    } else {
+        OkHttpClient.Builder().build()
+    }
 
     @Provides
     @Singleton
@@ -51,8 +56,11 @@ object DataLayerModules {
 
     @Provides
     @Singleton
-    fun provideWeatherRepository(weatherApi: WeatherApi,weatherDao: WeatherDao): WeatherRepository {
-        return WeatherRepositoriesImpl(weatherApi,weatherDao)
+    fun provideWeatherRepository(
+        weatherApi: WeatherApi,
+        weatherDao: WeatherDao
+    ): WeatherRepository {
+        return WeatherRepositoriesImpl(weatherApi, weatherDao)
     }
 
     @Provides
