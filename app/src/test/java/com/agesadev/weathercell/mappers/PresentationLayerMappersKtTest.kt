@@ -1,8 +1,6 @@
 package com.agesadev.weathercell.mappers
 
-import com.agesadev.data.remote.dtos.Main
 import com.agesadev.domain.models.*
-import com.agesadev.weathercell.model.*
 import org.junit.Test
 
 

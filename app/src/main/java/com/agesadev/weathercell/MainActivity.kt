@@ -11,10 +11,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-
-    //    navigate up arrow button
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
 }
