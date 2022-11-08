@@ -1,7 +1,7 @@
-package com.agesadev.domain.usecases
+package com.agesadev.data.repositories
 
-import com.agesadev.common.utils.Resource
-import com.agesadev.data.repositories.FakeWeatherRepository
+
+import com.agesadev.domain.usecases.GetWeatherForecastUseCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -15,7 +15,7 @@ class GetWeatherForecastUseCaseTest {
 
     @Before
     fun setup() {
-        fakeWeatherRepository = FakeWeatherRepository()
+        fakeWeatherRepository = com.agesadev.data.repositories.FakeWeatherRepository()
         getWeatherForecastUseCase = GetWeatherForecastUseCase(fakeWeatherRepository)
     }
 

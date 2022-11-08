@@ -75,5 +75,4 @@ class DataLayerMappersTest {
         assert(weatherForecastEntity.city.name == weatherForecastWeatherApiResponse.city.name)
     }
 
-
 }
