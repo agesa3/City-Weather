@@ -4,4 +4,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="degrees_icon">°</string>
     <string name="retry">Retry</string>
+    <string name="weather_forecast">Weather Forecast</string>
+    <string name="search_city">Search City</string>
+    <string name="city_name">Kisumu</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunsriseTime">5:30</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunsetTime">6:00</string>
+    <string name="wind">Wind</string>
+    <string name="windSpeed">100</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure_sample">1010</string>
+    <string name="humidity_sample">60</string>
+    <string name="tuesday_10_am">Tuesday 10 AM</string>
+    <string name="temp">Temp</string>
+    <string name="_30">30</string>
 </resources>

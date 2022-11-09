@@ -74,11 +74,7 @@ class HomeFragment : Fragment() {
                         }
                         state.error != null -> {
                             homeBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                context,
-                                "The error is ${state.error}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(context, state.error, Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -107,7 +103,6 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
 
 
     override fun onDestroyView() {
