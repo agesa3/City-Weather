@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">@color/dark_gray</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+        <item name="postSplashScreenTheme">@style/Theme.WeatherCell</item>
+    </style>
+
 </resources>
