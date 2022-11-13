@@ -4,13 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.agesadev.common.Constants.WEATHER_FORECAST_TABLE_NAME
 import com.agesadev.data.mappers.toCityDomain
 import com.agesadev.data.mappers.toDomain
 import com.agesadev.data.remote.dtos.City
 import com.agesadev.data.remote.dtos.CityWeatherDto
 import com.agesadev.domain.models.ForecastWeatherDomain
 
-@Entity(tableName = "weather_forecast")
+@Entity(tableName = WEATHER_FORECAST_TABLE_NAME)
 data class WeatherForecastEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
