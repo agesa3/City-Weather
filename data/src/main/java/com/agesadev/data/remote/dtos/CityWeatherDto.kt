@@ -9,6 +9,8 @@ data class CityWeatherDto(
     val rain: Rain,
     val sys: Sys,
     val visibility: Int,
-    val wind: Wind
+    val wind: Wind,
+    val weather: List<Weather>,
+
 )
 

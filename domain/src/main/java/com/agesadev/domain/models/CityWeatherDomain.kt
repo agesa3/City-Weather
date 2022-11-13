@@ -7,5 +7,6 @@ data class CityWeatherDomain(
     val main: MainDomain,
     val pop: Double,
     val visibility: Int,
-    val wind: WindDomain
+    val wind: WindDomain,
+    val weather: List<WeatherDomain>,
 )

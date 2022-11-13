@@ -32,6 +32,9 @@ object Utils {
         return String.format("%.1f", kelvin - 273.15) + "°C"
     }
 
+    fun capitalizeTheFirstLetterOfTheWord(word: String): String {
+        return word.substring(0, 1).uppercase(Locale.ROOT) + word.substring(1)
+    }
 }
 
 

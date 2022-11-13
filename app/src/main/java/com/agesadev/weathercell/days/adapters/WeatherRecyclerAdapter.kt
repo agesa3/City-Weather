@@ -5,9 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.agesadev.common.Constants
+import com.agesadev.common.Constants.IMAGE_FORMAT
+import com.agesadev.common.Constants.IMAGE_URL
+import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.SingleWeatherCardBinding
 import com.agesadev.weathercell.model.CityWeatherPresentation
+import com.agesadev.weathercell.util.Utils.capitalizeTheFirstLetterOfTheWord
 import com.agesadev.weathercell.util.Utils.convertKelvinToDegrees
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class WeatherRecyclerAdapter :
     ListAdapter<CityWeatherPresentation, WeatherRecyclerAdapter.WeatherViewHolder>(
@@ -25,6 +32,15 @@ class WeatherRecyclerAdapter :
                 dateTimeText.text = cityWeatherPresentation.dt_txt
                 pressure.text = cityWeatherPresentation.main.pressure.toString()
                 tempInDegrees.text = convertKelvinToDegrees(cityWeatherPresentation.main.temp)
+                weatherDescriptionCard.text =
+                    capitalizeTheFirstLetterOfTheWord(cityWeatherPresentation.weather[0].main)
+                Glide.with(itemView.context)
+                    .load(
+                        IMAGE_URL + cityWeatherPresentation.weather[0].icon + IMAGE_FORMAT
+                    )
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.default_weather)
+                    .into(singleWeatherIcon)
             }
         }
     }

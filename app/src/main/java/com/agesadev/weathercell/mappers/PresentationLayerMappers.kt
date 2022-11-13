@@ -14,6 +14,15 @@ fun CoordDomain.toCoordPresentation(): CoordPresentation {
     )
 }
 
+fun WeatherDomain.toWeatherPresentation(): WeatherPresentation {
+    return WeatherPresentation(
+        description = description,
+        icon = icon,
+        id = id,
+        main = main
+    )
+}
+
 
 fun MainDomain.toMainPresentation(): MainPresentation {
     return MainPresentation(
@@ -62,8 +71,9 @@ fun CityWeatherDomain.toCityWeatherPresentation(): CityWeatherPresentation {
         pop = pop,
         visibility = visibility,
         wind = wind.toWindPresentation(),
+        weather = weather.map { it.toWeatherPresentation() }
 
-        )
+    )
 }
 
 
