@@ -7,5 +7,6 @@ data class CityWeatherPresentation(
     val main: MainPresentation,
     val pop: Double,
     val visibility: Int,
-    val wind: WindPresentation
+    val wind: WindPresentation,
+    val weather: List<WeatherPresentation>,
 )

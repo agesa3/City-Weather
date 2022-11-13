@@ -66,13 +66,16 @@ class DataLayerMappersTest {
                     Rain(1.0),
                     Sys("pod"),
                     1,
-                    Wind(1, 2.0, 3.0)
+                    Wind(1, 2.0, 3.0),
+                    listOf(Weather("cloudy", "main", 1, "icon"))
                 )
             ),
             1
         )
         val weatherForecastEntity = weatherForecastWeatherApiResponse.toWeatherForecastEntity()
         assert(weatherForecastEntity.city.name == weatherForecastWeatherApiResponse.city.name)
+        assert(weatherForecastEntity.city.country == weatherForecastWeatherApiResponse.city.country)
+
     }
 
 }

@@ -2,19 +2,22 @@ package com.agesadev.data.mappers
 
 import com.agesadev.data.local.model.WeatherForecastEntity
 import com.agesadev.data.remote.dtos.*
-import com.agesadev.domain.models.CloudsDomain
-import com.agesadev.domain.models.CoordDomain
-import com.agesadev.domain.models.MainDomain
-import com.agesadev.domain.models.WindDomain
-import com.agesadev.domain.models.CityDomain
-import com.agesadev.domain.models.CityWeatherDomain
-import com.agesadev.domain.models.ForecastWeatherDomain
+import com.agesadev.domain.models.*
 
 
 fun Coord.toCoordDomain(): CoordDomain {
     return CoordDomain(
         lon = lon,
         lat = lat
+    )
+}
+
+fun Weather.toWeatherDomain(): WeatherDomain {
+    return WeatherDomain(
+        description = description,
+        icon = icon,
+        id = id,
+        main = main
     )
 }
 
@@ -67,19 +70,19 @@ fun CityWeatherDto.toDomain(): CityWeatherDomain {
         main = main.toMainDomain(),
         pop = pop,
         visibility = visibility,
-        wind = wind.toWindDomain()
+        wind = wind.toWindDomain(),
+        weather = weather.map { it.toWeatherDomain() },
     )
 }
 
 
-
 fun ForecastWeatherApiResponse.toWeatherForecastEntity(): WeatherForecastEntity {
     return WeatherForecastEntity(
-        id=0,
+        id = 0,
         city = city,
         cnt = cnt,
         cod = cod,
-        list =list,
+        list = list,
         message = message
     )
 }

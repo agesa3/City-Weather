@@ -21,9 +21,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/weatherIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintEnd_toEndOf="@+id/search_query"
         app:layout_constraintStart_toStartOf="@+id/search_query"
@@ -34,14 +34,14 @@
         android:id="@+id/cityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sixteen_dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/city_name"
         android:textColor="@color/black"
         android:textSize="@dimen/large_text_size"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/weatherIcon"
+        app:layout_constraintStart_toStartOf="@+id/weatherIcon"
+        app:layout_constraintTop_toBottomOf="@+id/weatherDescription" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
@@ -169,7 +169,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/countyCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
+
+    <TextView
+        android:id="@+id/weatherDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="Cloudy"
+        app:layout_constraintEnd_toEndOf="@+id/weatherIcon"
+        app:layout_constraintStart_toStartOf="@+id/weatherIcon"
+        app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

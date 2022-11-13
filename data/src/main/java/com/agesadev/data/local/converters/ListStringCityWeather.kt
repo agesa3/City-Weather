@@ -31,6 +31,18 @@ class ListStringCityWeather {
         return gson.fromJson(str, Coord::class.java)
     }
 
+    @TypeConverter
+    fun fromWeather(weather: Weather): String {
+        val gson = Gson()
+        return gson.toJson(weather)
+    }
+
+    @TypeConverter
+    fun toWeather(str: String): Weather {
+        val gson = Gson()
+        return gson.fromJson(str, Weather::class.java)
+    }
+
 
 }
 

@@ -45,7 +45,15 @@ class FakeWeatherRepository : WeatherRepository {
                 ),
                 visibility = 0,
                 pop = 0.0,
-                dt_txt = "2021-09-01 12:00:00"
+                dt_txt = "2021-09-01 12:00:00",
+                weather = listOf(
+                    WeatherDomain(
+                        id = 0,
+                        main = "main",
+                        description = "description",
+                        icon = "icon"
+                    )
+                )
             )
         ),
         message = 0

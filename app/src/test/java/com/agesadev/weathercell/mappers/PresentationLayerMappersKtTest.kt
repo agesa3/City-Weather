@@ -77,7 +77,15 @@ class PresentationLayerMappersKtTest {
             MainDomain(1.0, 2, 3, 4.0, 5.0, 6.0),
             1.0,
             1,
-            WindDomain(1.0, 2)
+            WindDomain(1.0, 2),
+            listOf(
+                WeatherDomain(
+                    "main",
+                    "main",
+                    1,
+                    "icon"
+                )
+            )
         )
         val cityWeatherPresentation = cityWeatherDomain.toCityWeatherPresentation()
         assert(cityWeatherPresentation.clouds.all == 1)
@@ -118,7 +126,15 @@ class PresentationLayerMappersKtTest {
                     MainDomain(1.0, 2, 3, 4.0, 5.0, 6.0),
                     1.0,
                     1,
-                    WindDomain(1.0, 2)
+                    WindDomain(1.0, 2),
+                    listOf(
+                        WeatherDomain(
+                            "main",
+                            "main",
+                            1,
+                            "icon"
+                        )
+                    )
                 )
             ),
             1

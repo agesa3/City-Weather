@@ -14,8 +14,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.agesadev.common.Constants.IMAGE_FORMAT
+import com.agesadev.common.Constants.IMAGE_URL
 import com.agesadev.weathercell.R
 import com.agesadev.weathercell.databinding.FragmentHomeBinding
+import com.agesadev.weathercell.util.Utils.capitalizeTheFirstLetterOfTheWord
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -70,6 +75,8 @@ class HomeFragment : Fragment() {
                                 sunsetTime.text = getSunsetOrSunriseTime(state.data.city.sunset)
                                 sunriseTime.text = getSunsetOrSunriseTime(state.data.city.sunrise)
                                 countyCode.text = state.data.city.country
+                                weatherDescription.text = capitalizeTheFirstLetterOfTheWord(state.data.list[0].weather[0].main)
+                                getIconUrlAndLoadImageUsingGlide(state.data.list[0].weather[0].icon)
                             }
                         }
                         state.error != null -> {
@@ -89,6 +96,17 @@ class HomeFragment : Fragment() {
         return format.format(date)
 
     }
+
+    private fun getIconUrlAndLoadImageUsingGlide(icon: String) {
+        val iconUrl = IMAGE_URL + icon + IMAGE_FORMAT
+        Glide.with(this)
+            .load(iconUrl)
+            .error(R.drawable.default_weather)
+            .transition(withCrossFade())
+            .into(homeBinding.weatherIcon)
+    }
+
+
 
 
     private fun searchCityByName() {
