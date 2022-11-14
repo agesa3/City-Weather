@@ -13,7 +13,6 @@ import com.agesadev.domain.models.ForecastWeatherDomain
 
 @Entity(tableName = WEATHER_FORECAST_TABLE_NAME)
 data class WeatherForecastEntity(
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
     val id: Int,
     @Embedded
@@ -22,7 +21,11 @@ data class WeatherForecastEntity(
     val cod: String,
     val list: List<CityWeatherDto>,
     val message: Int
-)
+){
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "city_id")
+    var cityId: Int = city.id
+}
 
 
 fun WeatherForecastEntity.toWeatherForeCastDomain(): ForecastWeatherDomain {

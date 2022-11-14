@@ -32,9 +32,7 @@ class HomeFragment : Fragment() {
 
     private var _homeBinding: FragmentHomeBinding? = null
     private val homeBinding get() = _homeBinding!!
-
     private val homeWeatherViewModel: WeatherViewModel by activityViewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +55,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         searchCityByName()
         getAndObserverWeather()
-
     }
 
     private fun getAndObserverWeather() {
@@ -112,7 +109,7 @@ class HomeFragment : Fragment() {
     private fun searchCityByName() {
         homeBinding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                homeWeatherViewModel.getCurrentDayCityWeather(query.toString())
+                homeWeatherViewModel.getCurrentDayCityWeather(query.toString().trim())
                 return true
             }
 
