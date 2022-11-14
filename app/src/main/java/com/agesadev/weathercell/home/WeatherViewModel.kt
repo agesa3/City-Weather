@@ -25,7 +25,7 @@ class WeatherViewModel @Inject constructor(
     private val _currentDayWeather = MutableStateFlow(HomeWeatherState())
     val currentDayWeather: StateFlow<HomeWeatherState> = _currentDayWeather
 
-    var cityName = savedStateHandle.get<String>(DEFAULT_CITY_NAME) ?: DEFAULT_CITY_NAME
+    var cityName =savedStateHandle.get<String>(DEFAULT_CITY_NAME) ?: DEFAULT_CITY_NAME
 
     init {
         getCurrentDayCityWeather(cityName)

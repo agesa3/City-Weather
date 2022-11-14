@@ -78,7 +78,6 @@ fun CityWeatherDto.toDomain(): CityWeatherDomain {
 
 fun ForecastWeatherApiResponse.toWeatherForecastEntity(): WeatherForecastEntity {
     return WeatherForecastEntity(
-        id = 0,
         city = city,
         cnt = cnt,
         cod = cod,

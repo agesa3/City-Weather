@@ -1,5 +1,6 @@
 package com.agesadev.data.repositories
 
+import android.util.Log
 import com.agesadev.common.utils.Resource
 import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.model.toWeatherForeCastDomain
@@ -22,16 +23,17 @@ class WeatherRepositoriesImpl @Inject constructor(
             val weatherFromDb = weatherDao.getWeatherForecastByCityName(cityName)
             if (weatherFromDb != null) {
                 emit(Resource.Success(weatherFromDb.toWeatherForeCastDomain()))
-            }
-            try {
-                val weatherFromApi = weatherApi.getWeatherForecast(cityName)
-                weatherDao.insertWeatherForecast(weatherFromApi.toWeatherForecastEntity())
-                val weatherFromDb = weatherDao.getWeatherForecastByCityName(cityName)
-                emit(Resource.Success(weatherFromDb.toWeatherForeCastDomain()))
-            } catch (e: IOException) {
-                emit(Resource.Error(e.message.toString()))
-            } catch (e: HttpException) {
-                emit(Resource.Error(e.message.toString()))
+            } else {
+                try {
+                    val weatherFromApi = weatherApi.getWeatherForecast(cityName)
+                    weatherDao.insertWeatherForecast(weatherFromApi.toWeatherForecastEntity())
+                    val weatherFromDb = weatherDao.getWeatherForecastByCityName(cityName)
+                    emit(Resource.Success(weatherFromDb.toWeatherForeCastDomain()))
+                } catch (e: IOException) {
+                    emit(Resource.Error(e.message.toString()))
+                } catch (e: HttpException) {
+                    emit(Resource.Error(e.message.toString()))
+                }
             }
         }
 }
