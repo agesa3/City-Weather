@@ -13,8 +13,6 @@ import com.agesadev.domain.models.ForecastWeatherDomain
 
 @Entity(tableName = WEATHER_FORECAST_TABLE_NAME)
 data class WeatherForecastEntity(
-    @ColumnInfo(name = "forecast_id")
-    val id: Int,
     @Embedded
     val city: City,
     val cnt: Int,
