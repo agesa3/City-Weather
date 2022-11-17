@@ -2,10 +2,19 @@
 An android app that allows one to search for weather forecase for any city.Built following MVVM and clean architecture principles. 
 The app fetches weather forecast data for a given city then displays the forecast for the current day and two days after the current day.
 
+## APK 
+To test the apk you can download the apk from [here](https://github.com/agesa3/City-Weather/blob/main/demo/weather%20app.apk) and install it on your android device.
 
 
 ## Setup
 To run the project you will first get your API key from [openweather](https://openweathermap.org/).Then add it to your <b>local.properties</b> file i.e API_KEY=YOUR_API_KEY
+
+## Additional features to be worked on:
+ - Add more UI Test.
+ - Rewrite the UI to use Jetpack Compose.
+ - Add Baseline Profiles
+ - Play around with kotlin-dsl
+ 
 
 
 ## Test 
