@@ -1,6 +1,5 @@
 package com.agesadev.data.repositories
 
-import android.util.Log
 import com.agesadev.common.utils.Resource
 import com.agesadev.data.local.dao.WeatherDao
 import com.agesadev.data.local.model.toWeatherForeCastDomain
